@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity News</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<div class="container my-5">
+    <!-- Title and Date in the Center -->
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1>Cybersecurity News</h1>
+            <p class="text-muted">{{ current_time }}</p>
+        </div>
+    </div>
+
+    <!-- Main Centered News Section -->
+    <div class="row mt-5">
+        <!-- Left News Section (Text Only) -->
+        <div class="col-md-3">
+            {% for item in news_items %}
+                {% if loop.index == 2 or loop.index == 4 %}
+                <div class="mb-4">
+                    <h5>{{ item.title }}</h5>
+                    <p class="small text-muted">{{ item.date }}</p>
+                    <p>{{ item.summary[:100] }}...</p>
+                    <a href="{{ item.link }}" target="_blank" class="text-primary">Read more</a>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Main Cyber News (Image & Text) -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                {% set main_item = news_items[0] %}
+                {% if main_item.image %}
+                    <img class="card-img-top" src="{{ main_item.image }}" alt="Main News Image">
+                {% else %}
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Placeholder Image">
+                {% endif %}
+                <div class="card-body">
+                    <h3 class="card-title">{{ main_item.title }}</h3>
+                    <p class="card-text">{{ main_item.summary }}</p>
+                    <a href="{{ main_item.link }}" target="_blank" class="btn btn-primary">Read More</a>
+                    <small class="text-muted d-block mt-2">{{ main_item.date }} - {{ main_item.provider }}</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right News Section (Text Only) -->
+        <div class="col-md-3">
+            {% for item in news_items %}
+                {% if loop.index == 3 or loop.index == 5 %}
+                <div class="mb-4">
+                    <h5>{{ item.title }}</h5>
+                    <p class="small text-muted">{{ item.date }}</p>
+                    <p>{{ item.summary[:100] }}...</p>
+                    <a href="{{ item.link }}" target="_blank" class="text-primary">Read more</a>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Other News with Images Below -->
+    <div class="row mt-5">
+        {% for item in news_items %}
+            {% if loop.index > 5 %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    {% if item.image %}
+                        <img class="card-img-top" src="{{ item.image }}" alt="News Image">
+                    {% else %}
+                        <img class="card-img-top" src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Placeholder Image">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="card-text">{{ item.summary[:100] }}...</p>
+                        <a href="{{ item.link }}" target="_blank" class="btn btn-primary">Read More</a>
+                        <small class="text-muted d-block mt-2">{{ item.date }} - {{ item.provider }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
