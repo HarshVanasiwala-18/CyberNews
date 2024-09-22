@@ -10,7 +10,6 @@ app = Flask(__name__)
 news_provider = {
     "https://www.securityweek.com/feed/": "Security Week",
     "https://www.darkreading.com/rss.xml": "Dark Reading",
-    "https://threatpost.com/feed/": "Threat Post",
     "https://krebsonsecurity.com/feed/": "Krebs on Security",
     "https://feeds.feedburner.com/TheHackersNews": "The Hacker News",
 }
